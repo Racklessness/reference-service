@@ -1,0 +1,34 @@
+{
+  "name": "serverless-journey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "package": "zip -r function.zip src/ node_modules/",
+    "start": "npm run start:http",
+    "start:http": "node src/http/server.js",
+    "start:queue": "node src/queue/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "upload": "export S3_FUNCTION_NAME=function.zip && export S3_BUCKET_NAME=serverless-journey-deployment && aws s3 cp ./$S3_FUNCTION_NAME s3://$S3_BUCKET_NAME/ && aws s3api list-object-versions --bucket $S3_BUCKET_NAME --prefix $S3_FUNCTION_NAME --query 'Versions[?IsLatest].[VersionId]' --output text",
+    "migrate": "npx sequelize-cli db:migrate"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.635.0",
+    "aws-serverless-express": "^3.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mariadb": "^2.2.0",
+    "sequelize": "^5.21.5",
+    "sqs-producer": "^1.6.3",
+    "uuid": "^7.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0",
+    "sequelize-cli": "^5.5.1",
+    "sqs-consumer": "^5.4.0"
+  }
+}

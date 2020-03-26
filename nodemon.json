@@ -1,0 +1,8 @@
+{
+  "signal": "SIGHUP",
+  "exec": "npm start",
+  "watch": [
+    "src/*"
+  ],
+  "ext": "js"
+}
